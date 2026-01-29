@@ -4,61 +4,43 @@ public class SymmetricMatrix {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Read size (square matrix)
-        System.out.print("Enter order of matrix (rows = columns): ");
-        int n = sc.nextInt();
+        System.out.print("Enter number of rows: ");
+        int rows = sc.nextInt();
 
-        int[][] a = new int[n][n];
-        int[][] b = new int[n][n];
+        System.out.print("Enter number of columns: ");
+        int cols = sc.nextInt();
 
-        // Read first matrix
-        System.out.println("Enter elements of first matrix:");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                a[i][j] = sc.nextInt();
+        int[][] matrix = new int[rows][cols];
+
+        // A symmetric matrix must be square
+        if (rows != cols) {
+            System.out.println("Matrix is NOT symmetric (not a square matrix).");
+            return;
+        }
+
+        System.out.println("Enter matrix elements:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = sc.nextInt();
             }
         }
 
-        // Read second matrix
-        System.out.println("Enter elements of second matrix:");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                b[i][j] = sc.nextInt();
-            }
-        }
+        boolean isSymmetric = true;
 
-        // Check first matrix
-        boolean symmetricA = true;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (a[i][j] != a[j][i]) {
-                    symmetricA = false;
+        for (int i = 0; i < rows; i++) {
+            for (int j = i + 1; j < cols; j++) {
+                if (matrix[i][j] != matrix[j][i]) {
+                    isSymmetric = false;
                     break;
                 }
             }
         }
 
-        // Check second matrix
-        boolean symmetricB = true;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (b[i][j] != b[j][i]) {
-                    symmetricB = false;
-                    break;
-                }
-            }
+        if (isSymmetric) {
+            System.out.println("Matrix is SYMMETRIC.");
+        } else {
+            System.out.println("Matrix is NOT symmetric.");
         }
-
-        // Output result
-        if (symmetricA)
-            System.out.println("First matrix is Symmetric");
-        else
-            System.out.println("First matrix is Not Symmetric");
-
-        if (symmetricB)
-            System.out.println("Second matrix is Symmetric");
-        else
-            System.out.println("Second matrix is Not Symmetric");
 
         sc.close();
     }
